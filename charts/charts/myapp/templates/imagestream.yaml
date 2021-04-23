@@ -1,0 +1,20 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: myapp
+  name: myapp
+  namespace: {{ .Release.Namespace }}
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: myapp-img
+      importPolicy:
+        scheduled: true
+      name: myapp-img
+      referencePolicy:
+        type: Local
